@@ -2,4 +2,4 @@ Flask==1.1.2
 Flask-Compress==1.7.0
 xmltodict==0.12.0
 ujson==1.35
-python-jsonrpc-server @ file:///tmp/build/80754af9/python-jsonrpc-server_1594397536060/work
+
