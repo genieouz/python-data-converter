@@ -1,0 +1,16 @@
+<employees>
+	<employee>
+        <profile>
+            <firstName>Ousmane</firstName>
+            <lastName>SAKHO</lastName>
+            <middleName></middleName>
+            <age>39</age>
+            <matricule>1789I40OSN</matricule>
+        </profile>
+        <account>
+            <email>genieouzog@gmail.com</email>
+            <role>Data Engineer</role>
+            <password>myPass03</password>
+        </account>
+    </employee>
+</employees>
