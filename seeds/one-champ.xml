@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xml:base="http://wcf.tourinsoft.com/Syndication/3.0/normandie/cdcc632b-e15d-40fb-a958-71c4c374a2ac/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <id>http://wcf.tourinsoft.com/Syndication/3.0/normandie/cdcc632b-e15d-40fb-a958-71c4c374a2ac/Objects('LOINOR014FS00028')/EMAILs</id>
+    <title type="text">EMAILs</title>
+    <updated>2021-03-30T13:15:34Z</updated>
+    <link rel="self" title="EMAILs" href="EMAILs" />
+    <entry>
+        <id>http://wcf.tourinsoft.com/Syndication/3.0/normandie/cdcc632b-e15d-40fb-a958-71c4c374a2ac/EMAIL(409326L)</id>
+        <category term="TourInSoft.V5.Syndication.Syndication_SYNDICFEELLOISyndicationPOIFeelCityCoqTrotteurEquipementsdeloisirs_b08322b0b24045c49e3d3d9bd92bcb6e.EMAILCollection" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+        <link rel="edit" title="EMAILCollection" href="EMAIL(409326L)" />
+        <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Object" type="application/atom+xml;type=entry" title="Object" href="EMAIL(409326L)/Object" />
+        <title />
+        <updated>2021-03-30T13:15:34Z</updated>
+        <author>
+            <name />
+        </author>
+        <content type="application/xml">
+            <m:properties>
+                <d:ID m:type="Edm.Int64">409326</d:ID>
+                <d:CoordonneesTelecom>contact@ca-formeo.fr</d:CoordonneesTelecom>
+                <d:Ordre m:type="Edm.Int64">1</d:Ordre>
+                <d:SyndicObjectId>LOINOR014FS00028</d:SyndicObjectId>
+            </m:properties>
+        </content>
+    </entry>
+</feed>
