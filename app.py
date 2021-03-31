@@ -22,11 +22,14 @@ def getTourrinSoft(name, id):
     result = xmltodict.parse(contents)
     i= 0 ;
     for entry in result["feed"]["entry"]:
-        if(i == 0):
+        if(i < 10):
+            j = 0
             for link in entry["link"]: 
-                populatedObject = urllib.request.urlopen(destinationUrl+"/"+link["@href"]).read()   
-                link["@linkValue"] = xmltodict.parse(populatedObject)
-        i = 1
+                if(j > 0): 
+                    populatedObject = urllib.request.urlopen(destinationUrl+"/"+link["@href"]).read()   
+                    link["@linkValue"] = xmltodict.parse(populatedObject)
+                j = j + 1
+        i = i + 1
     return result
 
 if __name__ == "__main__":
