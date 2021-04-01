@@ -36,6 +36,7 @@ def getTourrinSoft(name, id):
     print("entress ", len(result["feed"]["entry"]))
     print("link ", len(result["feed"]["entry"][0]["link"]))
     for entry in result["feed"]["entry"]:
+        global thrs
         if(i < 100):
             j = 0
             for link in entry["link"]: 
@@ -47,8 +48,11 @@ def getTourrinSoft(name, id):
                     thrs.append(t);
                 j = j + 1
         i = i + 1
-    for t in thrs:
-        t.join()
+    if(i%50 == 0):
+        for t in thrs:
+            t.join()
+        # time.sleep(1)
+        thrs = [];
     return result
 
 if __name__ == "__main__":
