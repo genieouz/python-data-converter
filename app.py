@@ -5,7 +5,6 @@ import threading
 import time
 import queue
 import json
-from bson import ObjectId, json_util
 
 app = Flask(__name__)
 
@@ -31,7 +30,7 @@ def uploadFile():
     xml = request.files['file'].stream.read()
     return xmltodict.parse(xml)
 
-@app.route('/tourinsoft/Syndication/<name>/<id>', methods=['POST'])
+@app.route('/tourinsoft/Syndication/<name>/<id>')
 def getTourrinSoftDestination(name, id):
     destinationUrl = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
     expandableProps = getExpandableProps(name, id)
