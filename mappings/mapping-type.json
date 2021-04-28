@@ -1,0 +1,101 @@
+[
+    {
+        "type": "text",
+        "fieldNames": ["SyndicObjectName"],
+        "fieldNewName": "title",
+        "newNameType": "text"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Adresse", "ADRESSE1"],
+        "fieldNewName": ["address", "full_address"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Descriptifmusee", "Descriptifparcjardin", "Descriptifsitemonument", "Descriptifcommercial", "DESCRIPTIONACTIVEQUIP"],
+        "fieldNewName": "Description",
+        "newNameType": "text"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Courriel", "EMAILs"],
+        "fieldNewName": ["contacts", "mail"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Telephone", "TELEPHONEs"],
+        "fieldNewName": ["contacts", "phone"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["GmapLongitude"],
+        "fieldNewName": ["address", "location", "lng"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["GmapLatitude"],
+        "fieldNewName": ["address", "location", "lat"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Labeltourismehandicap"],
+        "fieldNewName": ["contraints"],
+        "newNameType": "Object",
+        "newNameValueType": "Array",
+        "createArrayWithSeparator": "|"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Animauxacceptes"],
+        "fieldNewName": "pets_allowed",
+        "newNameType": "text"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Langueparlee"],
+        "fieldNewName": ["informations", "languages"],
+        "newNameType": "Object",
+        "newNameValueType": "Array",
+        "createArrayWithSeparator": "|"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Dateouvertureaccueil", "OUVERTUREACCUEILs"],
+        "fieldNewName": "schedules",
+        "newNameType": "text",
+        "newNameValueType": "Array",
+        "createArrayWithSeparator": "|"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Modepaiement"],
+        "fieldNewName": "payment_options",
+        "newNameType": "text",
+        "newNameValueType": "Array",
+        "createArrayWithSeparator": "|"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Photo", "PHOTOs", "PHOTOs []"],
+        "fieldNewName": "gallery",
+        "newNameType": "text"
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+

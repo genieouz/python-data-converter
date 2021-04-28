@@ -8,34 +8,94 @@ import json
 
 app = Flask(__name__)
 
-def getExpandableProps(name, id):
-    destinationUrl = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
-    metadata = urllib.request.urlopen(destinationUrl+"/$metadata").read()
+
+def get_expandable_props(name, id):
+    destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
+    metadata = urllib.request.urlopen(destination_url+"/$metadata").read()
     metadata = xmltodict.parse(metadata)
     schema = metadata["edmx:Edmx"]["edmx:DataServices"]["Schema"]
     # schema = json.loads(json.dumps(schema, default=str))
-    entityTypes = [item["EntityType"] for item in schema if "EntityType" in item.keys()][0]
-    navigationProperty = [properties["NavigationProperty"] for properties in entityTypes if properties["@Name"] == "SyndicObject"][0]
-    expandableProps = ",".join([item["@Name"] for item in navigationProperty])
-    return expandableProps
+    entity_types = [item["EntityType"] for item in schema if "EntityType" in item.keys()][0]
+    navigation_property = [properties["NavigationProperty"] for properties in entity_types if properties["@Name"] == "SyndicObject"][0]
+    expandable_props = ",".join([item["@Name"] for item in navigation_property])
+    return expandable_props
+
 
 @app.route('/')
 def index():
     return "Hello, I'm Genieouz!"
 
+
 @app.route('/xml-to-json', methods=['POST'])
-def uploadFile():
+def upload_file():
     if 'file' not in request.files:
         return "Ficher xml 'file' introuvable!"
     xml = request.files['file'].stream.read()
     return xmltodict.parse(xml)
 
-@app.route('/tourinsoft/Syndication/<name>/<id>')
-def getTourrinSoftDestination(name, id):
-    destinationUrl = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
-    expandableProps = getExpandableProps(name, id)
-    contents = urllib.request.urlopen(destinationUrl+"/Objects?$format=json&$expand="+expandableProps).read()
+
+@app.route('/tourinsoft/Syndication/old/<name>/<id>')
+def get_tourinsoft_destination(name, id):
+    destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
+    expandable_props = get_expandable_props(name, id)
+    contents = urllib.request.urlopen(destination_url+"/Objects?$format=json&$expand="+expandable_props).read()
     return json.loads(contents)
+
+
+def createField(entity, field):
+    entity[field] = ""
+
+
+def create_literal_dict(fields):
+    literal = ""
+    for field in fields:
+        literal = literal + "['"+field+"']"
+    return literal
+
+
+@app.route('/tourinsoft/Syndication/<name>/<id>')
+def get_tourinsoft_syndication(name, id):
+    destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
+    expandable_props = get_expandable_props(name, id)
+    contents = urllib.request.urlopen(destination_url+"/Objects?$format=json&$expand="+expandable_props).read()
+    result = json.loads(contents)
+    entries = result["value"]
+    mapping = []
+    with open('mappings/mapping-type.json') as f:
+        mapping = json.load(f)
+    for entry in entries:
+        if "contacts" not in entry.keys():
+            entry["contacts"] = {'mail': "", 'phone': ""}
+        if "mail" not in entry["contacts"].keys():
+            entry["contacts"]["mail"] = ""
+        if "phone" not in entry["contacts"].keys():
+            entry["contacts"]["phone"] = ""
+        if "address" not in entry.keys():
+            entry["address"] = {"location": {'lat': "", 'lng': ""}, 'full_address': ""}
+        if "location" not in entry["address"].keys():
+            entry["address"]["location"] = {}
+        if "informations" not in entry.keys():
+            entry["informations"] = {'languages': ""}
+        for field in mapping:
+            for possibleName in field["fieldNames"]:
+                if possibleName in entry.keys():
+                    value = entry[possibleName]
+                    if "newNameValueType" in field.keys() and field["newNameValueType"] == "Array" and entry[possibleName] is not None and isinstance(entry[possibleName], str):
+                        value = entry[possibleName].split(field["createArrayWithSeparator"])
+                    if field["newNameType"] == "text":
+                        entry[field["fieldNewName"]] = entry[possibleName]
+                    elif field["newNameType"] == "Object":
+                        literal_dict = "entry"+create_literal_dict(field["fieldNewName"])
+                        if value is not None:
+                            eval_op = None
+                            if isinstance(value, str):
+                                eval_op = literal_dict+"="+"'"+str(value).replace("'", "\\'")+"'"
+                            else:
+                                eval_op = literal_dict+"="+str(value)
+                            exec(eval_op)
+
+    return result
+
 
 if __name__ == "__main__":
     app.run()
