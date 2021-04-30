@@ -5,6 +5,8 @@ import threading
 import time
 import queue
 import json
+from operator import itemgetter
+import re
 
 app = Flask(__name__)
 
@@ -83,15 +85,54 @@ def get_tourinsoft_syndication(name, id):
                     if "newNameValueType" in field.keys() and field["newNameValueType"] == "Array" and entry[possibleName] is not None and isinstance(entry[possibleName], str):
                         value = entry[possibleName].split(field["createArrayWithSeparator"])
                     if field["newNameType"] == "text":
-                        entry[field["fieldNewName"]] = entry[possibleName]
-                    elif field["newNameType"] == "Object":
+                        if isinstance(value, str):
+                            if str(value).lower() == "non" or str(value).lower() == "oui":
+                                value = True if value.lower() == "oui" else False
+                            else:
+                                value = str(value).replace("'", "\\'")
+                        entry[field["fieldNewName"]] = value
+                    else:
                         literal_dict = "entry"+create_literal_dict(field["fieldNewName"])
                         if value is not None:
                             eval_op = None
-                            if isinstance(value, str):
-                                eval_op = literal_dict+"="+"'"+str(value).replace("'", "\\'")+"'"
+                            if isinstance(value, str) and field["newNameType"] != "ArrayExtracted":
+                                if str(value).lower() == "non" or str(value).lower() == "oui":
+                                    value = True if value.lower() == "oui" else False
+                                else:
+                                    value = str(value).replace("'", "\\'")
+                                eval_op = literal_dict+"="+"'"+value+"'"
                             else:
-                                eval_op = literal_dict+"="+str(value)
+                                if "levels" in field.keys():
+                                    intermediateVal = None
+                                    if isinstance(value, list):
+                                        intermediateVal = []
+                                        i = 0
+                                        for val in value:
+                                            for level1 in field["levels"]:
+                                                subfields = [subfield for subfield in level1["fields"]]
+                                                if len(level1["fields"]) == 0:
+                                                    intermediateVal.append(val[level1["name"]])
+                                                elif level1["name"] == "None":
+                                                    intermediateVal.append({})
+                                                    for subfield in level1["fields"]:
+                                                        intermediateVal[i][subfield] = itemgetter(subfield)(
+                                                            val)
+                                                else:
+                                                    intermediateVal.append({})
+                                                    for subfield in level1["fields"]:
+                                                        intermediateVal[i][subfield] = itemgetter(subfield)(val[level1["name"]])
+                                            i = i + 1
+                                        value = intermediateVal
+                                if field["newNameType"] == "ArrayExtracted":
+                                    value = re.findall(field["regex"], value.replace("</span>", ""))
+                                    print(value)
+                                if "changeArrayToOne" in field.keys() and field["changeArrayToOne"] == "true":
+                                    value = value[0] if len(value) > 0 else None
+                                if isinstance(value, str):
+                                    value = str(value).replace("'", "\\'")
+                                    eval_op = literal_dict + "=" + "'" + value + "'"
+                                else:
+                                    eval_op = literal_dict+"="+str(value)
                             exec(eval_op)
 
     return result

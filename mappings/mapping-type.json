@@ -19,13 +19,35 @@
     },
     {
         "type": "text",
-        "fieldNames": ["Courriel", "EMAILs"],
+        "fieldNames": ["EMAILs"],
+        "fieldNewName": ["contacts", "mail"],
+        "newNameType": "ArrayOfObjects",
+        "levels": [{
+            "name": "CoordonneesTelecom",
+            "fields": []
+        }],
+        "changeArrayToOne": "true"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["TELEPHONEs"],
+        "fieldNewName": ["contacts", "phone"],
+        "newNameType": "ArrayOfObjects",
+        "levels": [{
+            "name": "CoordonneesTelecom",
+            "fields": []
+        }],
+        "changeArrayToOne": "true"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Courriel"],
         "fieldNewName": ["contacts", "mail"],
         "newNameType": "Object"
     },
     {
         "type": "text",
-        "fieldNames": ["Telephone", "TELEPHONEs"],
+        "fieldNames": ["Telephone"],
         "fieldNewName": ["contacts", "phone"],
         "newNameType": "Object"
     },
@@ -65,11 +87,21 @@
     },
     {
         "type": "text",
-        "fieldNames": ["Dateouvertureaccueil", "OUVERTUREACCUEILs"],
+        "fieldNames": ["Dateouvertureaccueil"],
         "fieldNewName": "schedules",
         "newNameType": "text",
         "newNameValueType": "Array",
         "createArrayWithSeparator": "|"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["OUVERTUREACCUEILs"],
+        "fieldNewName": ["schedules"],
+        "levels": [{
+            "name": "None",
+            "fields": ["heuredebut1", "heurefin1", "heuredebut2", "heurefin2", "Datedebut", "Datefin"]
+        }],
+        "newNameType": "ArrayOfObjects"
     },
     {
         "type": "text",
@@ -81,9 +113,20 @@
     },
     {
         "type": "text",
-        "fieldNames": ["Photo", "PHOTOs", "PHOTOs []"],
-        "fieldNewName": "gallery",
-        "newNameType": "text"
+        "fieldNames": ["PHOTOs"],
+        "fieldNewName": ["gallery"],
+        "levels": [{
+            "name": "Photo",
+            "fields": ["Url", "Titre", "Credit"]
+        }],
+        "newNameType": "ArrayOfObjects"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["Photo"],
+        "fieldNewName": ["gallery"],
+        "newNameType": "ArrayExtracted",
+        "regex": "(?P<url>https?://[^\\s]+)"
     }
 ]
 
