@@ -61,6 +61,7 @@ def get_tourinsoft_syndication(name, id):
     expandable_props = get_expandable_props(name, id)
     contents = urllib.request.urlopen(destination_url+"/Objects?$format=json&$expand="+expandable_props).read()
     result = json.loads(contents)
+    result.pop("odata.metadata", None)
     entries = result["value"]
     mapping = []
     with open('mappings/mapping-type.json') as f:
@@ -125,7 +126,6 @@ def get_tourinsoft_syndication(name, id):
                                         value = intermediateVal
                                 if field["newNameType"] == "ArrayExtracted":
                                     value = re.findall(field["regex"], value.replace("</span>", ""))
-                                    print(value)
                                 if "changeArrayToOne" in field.keys() and field["changeArrayToOne"] == "true":
                                     value = value[0] if len(value) > 0 else None
                                 if isinstance(value, str):
