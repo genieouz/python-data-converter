@@ -11,6 +11,15 @@ import re
 app = Flask(__name__)
 
 
+def filter_props(prop):
+    expandable_props = ['CHAINESs', 'MOYENSCOMMUNICATIONs', 'VIDEOSs', 'SPECIALITESCULINAIRESs', 'MOYENSCOMMUNICATIONRESERVATIONs', 'RESERVATIONs', 'TisTracking']
+
+    if prop in expandable_props:
+        return False
+    else:
+        return True
+
+
 def get_expandable_props(name, id):
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
     metadata = urllib.request.urlopen(destination_url+"/$metadata").read()
@@ -19,7 +28,7 @@ def get_expandable_props(name, id):
     # schema = json.loads(json.dumps(schema, default=str))
     entity_types = [item["EntityType"] for item in schema if "EntityType" in item.keys()][0]
     navigation_property = [properties["NavigationProperty"] for properties in entity_types if properties["@Name"] == "SyndicObject"][0]
-    expandable_props = ",".join([item["@Name"] for item in navigation_property])
+    expandable_props = ",".join(filter(filter_props, [item["@Name"] for item in navigation_property]))
     return expandable_props
 
 
@@ -116,8 +125,9 @@ def get_tourinsoft_syndication(name, id):
                                                 elif level1["name"] == "None":
                                                     intermediateVal.append({})
                                                     for subfield in level1["fields"]:
-                                                        intermediateVal[i][subfield] = itemgetter(subfield)(
-                                                            val)
+                                                        if subfield in val.keys():
+                                                            intermediateVal[i][subfield] = itemgetter(subfield)(
+                                                                val)
                                                 else:
                                                     intermediateVal.append({})
                                                     for subfield in level1["fields"]:

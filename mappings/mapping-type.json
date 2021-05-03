@@ -113,7 +113,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["PHOTOs"],
+        "fieldNames": ["PHOTOs", "PHOTOSs"],
         "fieldNewName": ["gallery"],
         "levels": [{
             "name": "Photo",
