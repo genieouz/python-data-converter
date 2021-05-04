@@ -12,12 +12,12 @@ app = Flask(__name__)
 
 
 def filter_props(prop):
-    expandable_props = ['CHAINESs', 'MOYENSCOMMUNICATIONs', 'VIDEOSs', 'SPECIALITESCULINAIRESs', 'MOYENSCOMMUNICATIONRESERVATIONs', 'RESERVATIONs', 'TisTracking']
+    expandable_props = ['Structure','PHOTOs','TYPEs','MOBILEs','TELEPHONEs','LABELTHs','EMAILs']
 
     if prop in expandable_props:
-        return False
-    else:
         return True
+    else:
+        return False
 
 
 def get_expandable_props(name, id):
@@ -68,6 +68,7 @@ def create_literal_dict(fields):
 def get_tourinsoft_syndication(name, id):
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
     expandable_props = get_expandable_props(name, id)
+    # print({'og': destination_url+"/Objects?$format=json&$expand="+expandable_props})
     contents = urllib.request.urlopen(destination_url+"/Objects?$format=json&$expand="+expandable_props).read()
     result = json.loads(contents)
     result.pop("odata.metadata", None)
