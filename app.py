@@ -136,6 +136,8 @@ def get_tourinsoft_syndication(name, id):
                                         value = intermediateVal
                                 if field["newNameType"] == "ArrayExtracted":
                                     value = re.findall(field["regex"], value.replace("</span>", ""))
+                                    if possibleName == 'Photo':
+                                        value = [{'Url': v, "Credit": None, "Titre": None} for v in value]
                                 if "changeArrayToOne" in field.keys() and field["changeArrayToOne"] == "true":
                                     value = value[0] if len(value) > 0 else None
                                 if isinstance(value, str):
