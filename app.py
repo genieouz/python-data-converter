@@ -20,9 +20,9 @@ def filter_props(prop):
         return False
 
 
-def get_expandable_props(name, id):
+def get_expandable_props(name, id, url):
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
-    metadata = urllib.request.urlopen(destination_url+"/$metadata").read()
+    metadata = urllib.request.urlopen(url+"/$metadata").read()
     metadata = xmltodict.parse(metadata)
     schema = metadata["edmx:Edmx"]["edmx:DataServices"]["Schema"]
     # schema = json.loads(json.dumps(schema, default=str))
@@ -48,7 +48,7 @@ def upload_file():
 @app.route('/tourinsoft/Syndication/old/<name>/<id>')
 def get_tourinsoft_destination(name, id):
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
-    expandable_props = get_expandable_props(name, id)
+    expandable_props = get_expandable_props(name, id, destination_url)
     contents = urllib.request.urlopen(destination_url+"/Objects?$format=json&$expand="+expandable_props).read()
     return json.loads(contents)
 
@@ -66,10 +66,15 @@ def create_literal_dict(fields):
 
 @app.route('/tourinsoft/Syndication/<name>/<id>')
 def get_tourinsoft_syndication(name, id):
+    data_form = request.get_json(force=True)
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
-    expandable_props = get_expandable_props(name, id)
     # print({'og': destination_url+"/Objects?$format=json&$expand="+expandable_props})
-    contents = urllib.request.urlopen(destination_url+"/Objects?$format=json&$expand="+expandable_props).read()
+    req_url = data_form['url'] + "/Objects?$format=json"
+    if 'expand' in data_form.keys() and data_form['expand'] is True:
+        expandable_props = get_expandable_props(name, id, data_form['url'])
+        req_url = req_url + "&$expand="+expandable_props
+    print("req_url ",req_url)
+    contents = urllib.request.urlopen(req_url).read()
     result = json.loads(contents)
     result.pop("odata.metadata", None)
     entries = result["value"]
