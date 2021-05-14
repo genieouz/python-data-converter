@@ -67,9 +67,12 @@ def create_literal_dict(fields):
 @app.route('/tourinsoft/Syndication/<name>/<id>')
 def get_tourinsoft_syndication(name, id):
     data_form = request.get_json(force=True)
-    destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id;
+    destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id
     # print({'og': destination_url+"/Objects?$format=json&$expand="+expandable_props})
-    req_url = data_form['url'] + "/Objects?$format=json"
+    if 'api-v3.tourinsoft.com' in data_form['url']:
+        req_url = data_form['url'] + '?format=json'
+    else:
+        req_url = data_form['url'] + '/Objects?$format=json'
     if 'expand' in data_form.keys() and data_form['expand'] is True:
         expandable_props = get_expandable_props(name, id, data_form['url'])
         req_url = req_url + "&$expand="+expandable_props
