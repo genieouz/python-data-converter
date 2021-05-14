@@ -64,7 +64,7 @@ def create_literal_dict(fields):
     return literal
 
 
-@app.route('/tourinsoft/Syndication/<name>/<id>')
+@app.route('/tourinsoft/Syndication/<name>/<id>', methods=['GET', 'POST'])
 def get_tourinsoft_syndication(name, id):
     data_form = request.get_json(force=True)
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id
