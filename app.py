@@ -69,6 +69,7 @@ def get_tourinsoft_syndication(name, id):
     data_form = request.get_json(force=True)
     destination_url = "http://wcf.tourinsoft.com/Syndication/3.0/"+name+"/"+id
     # print({'og': destination_url+"/Objects?$format=json&$expand="+expandable_props})
+    print('request body', data_form)
     if 'api-v3.tourinsoft.com' in data_form['url']:
         req_url = data_form['url'] + '?format=json'
     else:
