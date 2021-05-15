@@ -98,6 +98,7 @@ def get_tourinsoft_syndication(name, id):
             entry["address"]["location"] = {}
         if "informations" not in entry.keys():
             entry["informations"] = {'languages': ""}
+
         for field in mapping:
             for possibleName in field["fieldNames"]:
                 if possibleName in entry.keys():

@@ -123,6 +123,16 @@
     },
     {
         "type": "text",
+        "fieldNames": ["Photos"],
+        "fieldNewName": ["gallery"],
+        "levels": [{
+            "name": "Photo",
+            "fields": ["Url", "Titre", "Credit"]
+        }],
+        "newNameType": "ArrayOfObjects"
+    },
+    {
+        "type": "text",
         "fieldNames": ["Photo"],
         "fieldNewName": ["gallery"],
         "newNameType": "ArrayExtracted",
