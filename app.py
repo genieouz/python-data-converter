@@ -98,10 +98,25 @@ def get_tourinsoft_syndication(name, id):
             entry["address"]["location"] = {}
         if "informations" not in entry.keys():
             entry["informations"] = {'languages': ""}
+
         if "Adresses" in entry.keys() and isinstance(entry["Adresses"], list) and len(entry["Adresses"]) > 0:
             entry["Adresse"] = entry["Adresses"][0]["Adresse1"]
+            entry["COMMUNE"] = entry["Adresses"][0]["Commune"]
             if "Adresse1Suite" in entry["Adresses"][0].keys() and entry["Adresses"][0]["Adresse1Suite"] is not None:
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["Adresse1Suite"]
+            if "CodePostal" in entry["Adresses"][0].keys() and entry["Adresses"][0]["CodePostal"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["CodePostal"]
+            if "Commune" in entry["Adresses"][0].keys() and entry["Adresses"][0]["Commune"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["Commune"]
+
+        if "ADRESSE1" in entry.keys() and entry["ADRESSE1"] is not None:
+            entry["Adresse"] = entry["ADRESSE1"]
+            if "ADRESSE1SUITE" in entry.keys() and entry["ADRESSE1SUITE"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["ADRESSE1SUITE"]
+            if "CODEPOSTAL" in entry.keys() and entry["CODEPOSTAL"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["CODEPOSTAL"]
+            if "COMMUNE" in entry.keys() and entry["COMMUNE"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["COMMUNE"]
 
         for field in mapping:
             for possibleName in field["fieldNames"]:
