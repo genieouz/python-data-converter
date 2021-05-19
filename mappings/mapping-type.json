@@ -19,7 +19,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["Descriptifmusee", "Descriptifparcjardin", "Descriptifsitemonument", "Descriptifcommercial", "DESCRIPTIONACTIVEQUIP"],
+        "fieldNames": ["Descriptifmusee", "Descriptifparcjardin", "Descriptifsitemonument", "Descriptifcommercial", "DESCRIPTIONACTIVEQUIP", "DESCRIPTIFSITESMONUMENTS", "DESCRIPTIONCOMMERCIALE"],
         "fieldNewName": "Description",
         "newNameType": "text"
     },
