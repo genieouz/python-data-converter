@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 def filter_props(prop):
-    expandable_props = ['Structure','PHOTOs','TYPEs','MOBILEs','TELEPHONEs','LABELTHs','EMAILs']
+    expandable_props = ['Structure','PHOTOs','TYPEs','MOBILEs','TELEPHONEs','LABELTHs','EMAILs', 'PHOTOSs']
 
     if prop in expandable_props:
         return True
