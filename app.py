@@ -7,6 +7,8 @@ import queue
 import json
 from operator import itemgetter
 import re
+from urlextract import URLExtract
+extractor = URLExtract()
 
 app = Flask(__name__)
 
@@ -81,7 +83,11 @@ def get_tourinsoft_syndication(name, id):
     contents = urllib.request.urlopen(req_url).read()
     result = json.loads(contents)
     result.pop("odata.metadata", None)
-    entries = result["value"]
+    entries = []
+    if "value" in result.keys():
+        entries = result["value"]
+    elif "d" in result.keys():
+        entries = result["d"]
     mapping = []
     with open('mappings/mapping-type.json') as f:
         mapping = json.load(f)
@@ -117,6 +123,20 @@ def get_tourinsoft_syndication(name, id):
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["CODEPOSTAL"]
             if "COMMUNE" in entry.keys() and entry["COMMUNE"] is not None:
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["COMMUNE"]
+
+        if "adresse1" in entry.keys() and entry["adresse1"] is not None:
+            entry["Adresse"] = entry["adresse1"]
+            if "adresse1Suite" in entry.keys() and entry["adresse1Suite"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["adresse1Suite"]
+            if "codePostal" in entry.keys() and entry["codePostal"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["codePostal"]
+            if "commune" in entry.keys() and entry["commune"] is not None:
+                entry["Adresse"] = entry["Adresse"] + ", " + entry["commune"]
+
+        if "photo" in entry.keys() and entry["photo"] is not None:
+            entry["photo"] = entry["photo"].replace("|©", " ")
+            urls = extractor.find_urls(entry["photo"])
+            entry["gallery"] = [x for x in urls]
 
         for field in mapping:
             for possibleName in field["fieldNames"]:

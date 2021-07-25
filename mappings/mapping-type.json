@@ -19,13 +19,13 @@
     },
     {
         "type": "text",
-        "fieldNames": ["Descriptifmusee", "Descriptifparcjardin", "Descriptifsitemonument", "Descriptifcommercial", "DESCRIPTIONACTIVEQUIP", "DESCRIPTIFSITESMONUMENTS", "DESCRIPTIONCOMMERCIALE"],
+        "fieldNames": ["Descriptifmusee", "Descriptifparcjardin", "Descriptifsitemonument", "Descriptifcommercial", "DESCRIPTIONACTIVEQUIP", "DESCRIPTIFSITESMONUMENTS", "DESCRIPTIONCOMMERCIALE", "descriptif"],
         "fieldNewName": "Description",
         "newNameType": "text"
     },
     {
         "type": "text",
-        "fieldNames": ["EMAILs"],
+        "fieldNames": ["EMAILs", "email"],
         "fieldNewName": ["contacts", "mail"],
         "newNameType": "ArrayOfObjects",
         "levels": [{
@@ -36,7 +36,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["TELEPHONEs"],
+        "fieldNames": ["TELEPHONEs", "telephone"],
         "fieldNewName": ["contacts", "phone"],
         "newNameType": "ArrayOfObjects",
         "levels": [{
