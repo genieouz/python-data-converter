@@ -134,7 +134,8 @@ def get_tourinsoft_syndication(name, id):
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["commune"]
 
         if "photo" in entry.keys() and entry["photo"] is not None:
-            entry["photo"] = entry["photo"].replace("|©", " ")
+            entry["photo"] = entry["photo"].replace("|", " ")
+            # entry["photo"] = re.sub(r'\|.*', '', entry["photo"])
             urls = extractor.find_urls(entry["photo"])
             entry["gallery"] = [x for x in urls]
 
