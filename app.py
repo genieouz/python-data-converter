@@ -105,6 +105,9 @@ def get_tourinsoft_syndication(name, id):
         if "informations" not in entry.keys():
             entry["informations"] = {'languages': ""}
 
+        if "Structure" in entry.keys() and entry["Structure"] is not None and "Country" in entry["Structure"].keys():
+            if entry["Structure"]["Country"] is not None:
+                entry["country"] = entry["Structure"]["Country"]
         if "Adresses" in entry.keys() and isinstance(entry["Adresses"], list) and len(entry["Adresses"]) > 0:
             entry["Adresse"] = entry["Adresses"][0]["Adresse1"]
             entry["COMMUNE"] = entry["Adresses"][0]["Commune"]
@@ -112,6 +115,7 @@ def get_tourinsoft_syndication(name, id):
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["Adresse1Suite"]
             if "CodePostal" in entry["Adresses"][0].keys() and entry["Adresses"][0]["CodePostal"] is not None:
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["CodePostal"]
+                entry["CodePostal"] = entry["Adresses"][0]["CodePostal"]
             if "Commune" in entry["Adresses"][0].keys() and entry["Adresses"][0]["Commune"] is not None:
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["Commune"]
 

@@ -13,8 +13,20 @@
     },
     {
         "type": "text",
-        "fieldNames": ["COMMUNE"],
+        "fieldNames": ["COMMUNE", "commune"],
         "fieldNewName": ["address", "locality"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["CODEPOSTAL", "CodePostal", "CODEPOSTAL", "codePostal"],
+        "fieldNewName": ["address", "postal_code"],
+        "newNameType": "Object"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["country"],
+        "fieldNewName": ["address", "country"],
         "newNameType": "Object"
     },
     {
