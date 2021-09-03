@@ -99,7 +99,7 @@ def get_tourinsoft_syndication(name, id):
         if "phone" not in entry["contacts"].keys():
             entry["contacts"]["phone"] = ""
         if "address" not in entry.keys():
-            entry["address"] = {"location": {'lat': "", 'lng': ""}, 'full_address': ""}
+            entry["address"] = {"location": {'lat': "", 'lng': ""}, 'full_address': "", "locality": ""}
         if "location" not in entry["address"].keys():
             entry["address"]["location"] = {}
         if "informations" not in entry.keys():
@@ -203,6 +203,8 @@ def get_tourinsoft_syndication(name, id):
                                 else:
                                     eval_op = literal_dict+"="+str(value)
                             exec(eval_op)
+        if entry["address"]["locality"] is not None:
+            entry["address"]["locality"] = entry["address"]["locality"].lower()
 
     return result
 
