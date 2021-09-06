@@ -205,6 +205,9 @@ def get_tourinsoft_syndication(name, id):
                             exec(eval_op)
         if entry["address"]["locality"] is not None:
             entry["address"]["locality"] = entry["address"]["locality"].lower()
+        if "scheduleText" in entry.keys() and entry["scheduleText"] is not None:
+            entry["scheduleText"] = entry["scheduleText"].replace("\\", "");
+            entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
 
     return result
 

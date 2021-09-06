@@ -105,6 +105,13 @@
     },
     {
         "type": "text",
+        "fieldNames": ["ouvertureAccueilFormatTexteIndividuel"],
+        "fieldNewName": "scheduleText",
+        "newNameType": "text",
+        "newNameValueType": "text"
+    },
+    {
+        "type": "text",
         "fieldNames": ["Dateouvertureaccueil"],
         "fieldNewName": "schedules",
         "newNameType": "text",
