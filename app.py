@@ -208,6 +208,9 @@ def get_tourinsoft_syndication(name, id):
         if "scheduleText" in entry.keys() and entry["scheduleText"] is not None:
             entry["scheduleText"] = entry["scheduleText"].replace("\\", "");
             entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
+        if "tarifText" in entry.keys() and entry["tarifText"] is not None:
+            entry["tarifText"] = entry["tarifText"].replace("\\", "");
+            entry["tarifText"] = entry["tarifText"].replace("\n", " ")
 
     return result
 
