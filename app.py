@@ -204,7 +204,7 @@ def get_tourinsoft_syndication(name, id):
                                     eval_op = literal_dict+"="+str(value)
                             exec(eval_op)
         if entry["address"]["locality"] is not None:
-            entry["address"]["locality"] = entry["address"]["locality"].lower()
+            entry["address"]["locality"] = entry["address"]["locality"].capitalize()
         if "scheduleText" in entry.keys() and entry["scheduleText"] is not None:
             entry["scheduleText"] = entry["scheduleText"].replace("\\", "");
             entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
