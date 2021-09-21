@@ -156,8 +156,7 @@ def get_tourinsoft_syndication(name, id):
                             else:
                                 value = str(value).replace("'", "\\'")
                         entry[field["fieldNewName"]] = value
-                        if field["fieldNewName"] == 'title':
-                            entry[field["fieldNewName"]] = value.capitalize()
+
                     else:
                         literal_dict = "entry"+create_literal_dict(field["fieldNewName"])
                         if value is not None:
@@ -211,8 +210,6 @@ def get_tourinsoft_syndication(name, id):
         if "tarifText" in entry.keys() and entry["tarifText"] is not None:
             entry["tarifText"] = entry["tarifText"].replace("\\", "");
             entry["tarifText"] = entry["tarifText"].replace("\n", " ")
-        if "title" in entry.keys() and entry["title"] is not None:
-            entry["title"] = entry["title"].capitalize()
 
     return result
 
