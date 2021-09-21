@@ -212,7 +212,7 @@ def get_tourinsoft_syndication(name, id):
             entry["tarifText"] = entry["tarifText"].replace("\\", "");
             entry["tarifText"] = entry["tarifText"].replace("\n", " ")
         if "title" in entry.keys() and entry["title"] is not None:
-            entry["title"] = entry["title"].title()
+            entry["title"] = entry["title"].capitalize()
 
     return result
 
