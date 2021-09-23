@@ -210,8 +210,8 @@ def get_tourinsoft_syndication(name, id):
         if "tarifText" in entry.keys() and entry["tarifText"] is not None:
             entry["tarifText"] = entry["tarifText"].replace("\\", "")
             entry["tarifText"] = entry["tarifText"].replace("\n", " ")
-            if entry["tarifText"].find("Gratuit pour tous") !=-1:
-                entry["free"] = True
+        if "tarif" in entry.keys() and entry["tarif"] is not None and entry["tarif"].find("Gratuit pour tous") !=-1:
+            entry["free"] = True
 
     return result
 

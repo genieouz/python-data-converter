@@ -112,8 +112,15 @@
     },
     {
         "type": "text",
-        "fieldNames": ["tarifFormatTexteIndividuel", "tarifsFormatTexte", "tarifsFormatTexteIndividuel", "tarifIndividuelsFormatTexte", "tarifsFormatTexteIndivuduel", "tarifsIndividuels"],
+        "fieldNames": ["tarifFormatTexteIndividuel", "tarifsFormatTexte", "tarifsFormatTexteIndividuel", "tarifIndividuelsFormatTexte", "tarifsFormatTexteIndivuduel"],
         "fieldNewName": "tarifText",
+        "newNameType": "text",
+        "newNameValueType": "text"
+    },
+    {
+        "type": "text",
+        "fieldNames": ["tarifFormatTexteIndividuel", "tarifsFormatTexte", "tarifsFormatTexteIndividuel", "tarifIndividuelsFormatTexte", "tarifsFormatTexteIndivuduel", "tarifsIndividuels"],
+        "fieldNewName": "tarif",
         "newNameType": "text",
         "newNameValueType": "text"
     },
