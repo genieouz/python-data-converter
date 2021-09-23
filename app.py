@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import pandas as pd
 import xmltodict, json
 import urllib.request
 import threading
@@ -8,6 +9,7 @@ import json
 from operator import itemgetter
 import re
 from urlextract import URLExtract
+from collections import OrderedDict
 extractor = URLExtract()
 
 app = Flask(__name__)
@@ -65,6 +67,9 @@ def create_literal_dict(fields):
         literal = literal + "['"+field+"']"
     return literal
 
+# def convertAddress(entry):
+#     entry.address.location.lat = 0
+
 
 @app.route('/tourinsoft/Syndication/<name>/<id>', methods=['GET', 'POST'])
 def get_tourinsoft_syndication(name, id):
@@ -99,7 +104,7 @@ def get_tourinsoft_syndication(name, id):
         if "phone" not in entry["contacts"].keys():
             entry["contacts"]["phone"] = ""
         if "address" not in entry.keys():
-            entry["address"] = {"location": {'lat': "", 'lng': ""}, 'full_address': "", "locality": ""}
+            entry["address"] = {"location": {'lng': None, 'lat': None}, 'full_address': "", "locality": ""}
         if "location" not in entry["address"].keys():
             entry["address"]["location"] = {}
         if "informations" not in entry.keys():
@@ -212,7 +217,9 @@ def get_tourinsoft_syndication(name, id):
             entry["tarifText"] = entry["tarifText"].replace("\n", " ")
         if "tarif" in entry.keys() and entry["tarif"] is not None and entry["tarif"].find("Gratuit pour tous") !=-1:
             entry["free"] = True
-
+        if entry["address"]["location"]["lat"] is not None and entry["address"]["location"]["lng"] is not None:
+            location = entry["address"]["location"]
+            entry["address"]["location"] = { "lng": float(location["lng"]), "lat": float(location["lat"]) }
     return result
 
 
