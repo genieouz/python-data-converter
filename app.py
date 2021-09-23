@@ -205,11 +205,13 @@ def get_tourinsoft_syndication(name, id):
         if entry["address"]["locality"] is not None:
             entry["address"]["locality"] = entry["address"]["locality"].capitalize()
         if "scheduleText" in entry.keys() and entry["scheduleText"] is not None:
-            entry["scheduleText"] = entry["scheduleText"].replace("\\", "");
+            entry["scheduleText"] = entry["scheduleText"].replace("\\", "")
             entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
         if "tarifText" in entry.keys() and entry["tarifText"] is not None:
-            entry["tarifText"] = entry["tarifText"].replace("\\", "");
+            entry["tarifText"] = entry["tarifText"].replace("\\", "")
             entry["tarifText"] = entry["tarifText"].replace("\n", " ")
+            if entry["tarifText"].find("Gratuit pour tous") !=-1:
+                entry["free"] = True
 
     return result
 

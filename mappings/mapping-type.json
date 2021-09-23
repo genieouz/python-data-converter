@@ -112,7 +112,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["tarifFormatTexteIndividuel", "tarifsFormatTexte", "tarifsFormatTexteIndividuel", "tarifIndividuelsFormatTexte", "tarifsFormatTexteIndivuduel"],
+        "fieldNames": ["tarifFormatTexteIndividuel", "tarifsFormatTexte", "tarifsFormatTexteIndividuel", "tarifIndividuelsFormatTexte", "tarifsFormatTexteIndivuduel", "tarifsIndividuels"],
         "fieldNewName": "tarifText",
         "newNameType": "text",
         "newNameValueType": "text"
