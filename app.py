@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import pandas as pd
 import xmltodict, json
 import urllib.request
 import threading
