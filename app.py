@@ -219,6 +219,8 @@ def get_tourinsoft_syndication(name, id):
         if entry["address"]["location"]["lat"] is not None and entry["address"]["location"]["lng"] is not None:
             location = entry["address"]["location"]
             entry["address"]["location"] = { "lng": float(location["lng"]), "lat": float(location["lat"]) }
+        if "Description" in entry.keys() and entry["Description"] is not None:
+            entry["Description"] = entry["Description"].replace("\\", "").replace("\n", " ").replace("\'", "'")
     return result
 
 
