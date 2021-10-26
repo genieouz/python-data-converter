@@ -81,6 +81,7 @@ def get_tourinsoft_syndication(name, id):
     else:
         req_url = data_form['url'] + '/Objects?$format=json'
     if 'expand' in data_form.keys() and data_form['expand'] is True:
+        print("EXPAND IS ", data_form['expand'])
         expandable_props = get_expandable_props(name, id, data_form['url'])
         req_url = req_url + "&$expand="+expandable_props
     print("req_url ",req_url)
@@ -114,6 +115,8 @@ def get_tourinsoft_syndication(name, id):
                 entry["country"] = entry["Structure"]["Country"]
         if "Adresses" in entry.keys() and isinstance(entry["Adresses"], list) and len(entry["Adresses"]) > 0:
             entry["Adresse"] = entry["Adresses"][0]["Adresse1"]
+            if entry["Adresse"] is None :
+                entry["Adresse"] = ""
             entry["COMMUNE"] = entry["Adresses"][0]["Commune"]
             if "Adresse1Suite" in entry["Adresses"][0].keys() and entry["Adresses"][0]["Adresse1Suite"] is not None:
                 entry["Adresse"] = entry["Adresse"] + ", " + entry["Adresses"][0]["Adresse1Suite"]
