@@ -37,7 +37,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["EMAILs", "email"],
+        "fieldNames": ["EMAILs", "email", "Courriels"],
         "fieldNewName": ["contacts", "mail"],
         "newNameType": "ArrayOfObjects",
         "levels": [{
@@ -48,7 +48,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["TELEPHONEs", "telephone"],
+        "fieldNames": ["TELEPHONEs", "telephone", "Telephones", "Portables"],
         "fieldNewName": ["contacts", "phone"],
         "newNameType": "ArrayOfObjects",
         "levels": [{
