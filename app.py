@@ -230,8 +230,8 @@ def get_tourinsoft_syndication(name, id):
             entry["address"]["location"] = { "lng": float(location["lng"]), "lat": float(location["lat"]) }
         if "Description" in entry.keys() and entry["Description"] is not None:
             entry["Description"] = entry["Description"].replace("\\", "").replace("\n", " ").replace("\'", "'")
-        if "title" in entry.keys() and entry["title"] is not None :
-            entry["title"] = entry["title"].capitalize()
+        # if "title" in entry.keys() and entry["title"] is not None :
+        #     entry["title"] = entry["title"].capitalize()
     return result
 
 
