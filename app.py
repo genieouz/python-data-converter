@@ -220,11 +220,14 @@ def get_tourinsoft_syndication(name, id):
             entry["tarifText"] = entry["tarifText"].replace("|", " ")
             entry["tarifText"] = entry["tarifText"].replace("#", " ")
             tarif = entry["tarifText"].replace(" ", "").replace("|", "")
-            if tarif is None or tarif == "Gratuité" or tarif == "Gratuit pour tous" or tarif == "Gratuit":
+            if tarif == "Gratuité" or tarif == "Gratuit pour tous" or tarif == "Gratuit" or entry["tarif"].find("Gratuit pour tous") !=-1:
                 entry["free"] = True
-                entry["min_price"] = None
-        if "tarif" in entry.keys() and (entry["tarif"] is None or entry["tarif"].find("Gratuit pour tous") !=-1 or entry["tarif"].find("Visite en libre accès toute l’année") !=-1):
-            entry["free"] = True
+            else :
+                entry["free"] = False
+
+        if "tarif" in entry.keys() and entry["tarif"] is None :
+            entry["free"] = None
+            entry["min_price"] = None
         if entry["address"]["location"]["lat"] is not None and entry["address"]["location"]["lng"] is not None:
             location = entry["address"]["location"]
             entry["address"]["location"] = { "lng": float(location["lng"]), "lat": float(location["lat"]) }
