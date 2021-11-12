@@ -213,11 +213,15 @@ def get_tourinsoft_syndication(name, id):
             entry["address"]["locality"] = entry["address"]["locality"].capitalize()
         if "scheduleText" in entry.keys() and entry["scheduleText"] is not None:
             entry["scheduleText"] = entry["scheduleText"].replace("\\", "")
-            entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
+            # entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
         if "tarif" in entry.keys() and entry["tarif"] is not None:
             entry["tarifText"] = entry["tarif"].replace("\\", "")
-            entry["tarifText"] = entry["tarifText"].replace("\n", " ")
+            # entry["tarifText"] = entry["tarifText"].replace("\n", " ")
+            entry["tarifText"] = entry["tarifText"].replace("|||||", " ")
+            entry["tarifText"] = entry["tarifText"].replace("||||", "\n")
+            entry["tarifText"] = entry["tarifText"].replace("||", " ")
             entry["tarifText"] = entry["tarifText"].replace("|", " ")
+            entry["tarifText"] = entry["tarifText"].replace("  ", "\n")
             entry["tarifText"] = entry["tarifText"].replace("#", " ")
             tarif = entry["tarifText"].replace(" ", "").replace("|", "")
             if tarif == "Gratuité" or tarif == "Gratuit pour tous" or tarif == "Gratuit" or entry["tarif"].find("Gratuit pour tous") !=-1:
