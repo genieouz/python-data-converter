@@ -213,6 +213,7 @@ def get_tourinsoft_syndication(name, id):
             entry["address"]["locality"] = entry["address"]["locality"].capitalize()
         if "scheduleText" in entry.keys() and entry["scheduleText"] is not None:
             entry["scheduleText"] = entry["scheduleText"].replace("\\", "")
+            entry["scheduleText"] = entry["scheduleText"].replace("#", "")
             sts = entry["scheduleText"].split("|||")
             arr = []
             for st in sts:
@@ -220,7 +221,6 @@ def get_tourinsoft_syndication(name, id):
                 if len(ar) > 1 and ar[0] == ar[1]:
                     del ar[0]
                 schedule = " ".join(ar)
-                schedule.replace("#","")
                 arr.append(schedule)
             entry["scheduleText"] = "\n".join(arr)
             # entry["scheduleText"] = entry["scheduleText"].replace("\n", " ")
