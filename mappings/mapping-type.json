@@ -105,7 +105,7 @@
     },
     {
         "type": "text",
-        "fieldNames": ["ouvertureAccueilFormatTexteIndividuel"],
+        "fieldNames": ["ouvertureAccueilFormatTexteIndividuel", "dateManifestation"],
         "fieldNewName": "scheduleText",
         "newNameType": "text",
         "newNameValueType": "text"
